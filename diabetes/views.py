@@ -24,12 +24,12 @@ def index(request):
 
 class UserList(generics.ListCreateAPIView):
     paginator=None
-    queryset = Reminder.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 class ProfileList(generics.ListCreateAPIView):
     paginator=None
-    queryset = Reminder.objects.all()
+    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     
 
@@ -45,7 +45,13 @@ class ProfileDetail(APIView):
 
 class ReadingsList(generics.ListCreateAPIView):
     paginator=None
-    queryset = Reminder.objects.all()
+    queryset = Reading.objects.all()
+    serializer_class = ReadingSerializer
+
+class Readings(generics.ListCreateAPIView):
+    paginator=None
+    users = User.objects.all()
+    queryset = Reading.objects.filter(user__in = users)
     serializer_class = ReadingSerializer
 
 class ReadingDetail(APIView):
@@ -66,8 +72,8 @@ class UserReading(APIView):
          return Profile.objects.get(pk=pk)
 
     def get(self, request, pk, format=None):
-        reading = self.get_object(pk)
-        userreadingSerializer = UserInlineSerializer(reading)
+        glucoseLevel = self.get_object(pk)
+        userreadingSerializer = UserInlineSerializer(glucoseLevel)
         return Response(userreadingSerializer.data)
 
 class DoctorList(generics.ListCreateAPIView):

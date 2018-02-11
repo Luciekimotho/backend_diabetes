@@ -40,7 +40,7 @@ class Profile(models.Model):
 		return str(self.user)
 
 class Reading(models.Model):
-	# patient = models.ForeignKey(Profile,related_name='readings', on_delete=models.CASCADE)
+	user = models.ForeignKey(User,default=1, related_name='readings', on_delete=models.CASCADE)
 	glucoseLevel = models.DecimalField(max_digits=7, decimal_places=4)
 	timePeriod = models.CharField(max_length = 50)
 	timeOfDay = models.DateTimeField(auto_now=True)
