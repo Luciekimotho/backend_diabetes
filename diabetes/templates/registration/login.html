@@ -1,0 +1,11 @@
+{% extends 'diabetes/base.html' %}
+
+{% block content %}
+
+<form method="post" class="form-control">
+        <div class="input">
+    {% csrf_token %}
+    {{ form.as_p }}</div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+{% endblock %}
